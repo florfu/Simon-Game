@@ -1,5 +1,7 @@
-SIMON game
+SIMON game //UNDER DEVELOPMENT
 
-- A game developed using jQuery -
+- Developed using jQuery -
+
+Live Demo: https://florfu.github.io/Simon-Game/
 
 Press any key to start
