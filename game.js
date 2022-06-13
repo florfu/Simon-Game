@@ -21,7 +21,7 @@ $(document).keydown(function() {
   started = true;
 });
 
-//handler function for button clicks
+//handler function for users' button clicks
 $(".btn").click(function() {
   //get id (colour) from button clicked
   var userChosenColour = this.id;
@@ -31,26 +31,45 @@ $(".btn").click(function() {
   playSound(userChosenColour);
   //store colour in userClickedPattern array
   userClickedPattern.push(userChosenColour);
-  console.log(userClickedPattern);
+  //show index of last array element
+  lastClickedIndex = userClickedPattern.length -1;
+  checkAnswer(lastClickedIndex);
 });
 
 
 //function that selects a random colour from buttonColours and adds it at the end of gamePattern
 function nextSequence() {
+  //reset userClickedPattern
+  userClickedPattern=[];
+  //update level and title
+  level++;
   $("#level-title").text("Level "+level);
+
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColour = buttonColours[randomNumber];
-  //button flash animation
-  $("." + randomChosenColour).fadeOut(200).fadeIn(200);
   //adds randomChosenColour to the array gamePattern
   gamePattern.push(randomChosenColour);
+  //button flash animation
+  $("." + randomChosenColour).fadeOut(200).fadeIn(200);
   //play the sound for the button colour
   playSound(randomChosenColour);
-  level++;
 }
 
 //Check answer function
+function checkAnswer(currentLevel) {
+  if (gamePattern[currentLevel]===userClickedPattern[currentLevel]) {
+    console.log("success");
+    if (userClickedPattern.length) {
+      setTimeout(() => nextSequence(),1000);
 
+    }
+    else {
+      console.log("not the last");
+    }
+  } else { 
+    console.log("wrong");
+  }
+}
 
 //Play sound function
 function playSound(name) {
