@@ -57,19 +57,30 @@ function nextSequence() {
   playSound(randomChosenColour);
 }
 
+// function to start over game after user misses button
+function startOver() {
+  started = false;
+  level = 0;
+  gamePattern = [];
+}
+
 //Check answer function
 function checkAnswer(currentLevel) {
   if (gamePattern[currentLevel]===userClickedPattern[currentLevel]) {
-    console.log("success");
     if (userClickedPattern.length === gamePattern.length) {
       setTimeout(() => nextSequence(),1000);
-
     }
     else {
       console.log("not the last");
     }
-  } else { 
-    console.log("wrong");
+  } else { // user fails
+    playSound('wrong');
+    $("body").addClass("red");
+    setTimeout(function(){
+      $("body").removeClass("red")
+    },200);
+    $("#level-title").text("Game Over, Press Any Key to Restart");
+    startOver(); // resets game variables
   }
 }
 
