@@ -15,10 +15,11 @@ var level = 0;
 
 //Start the game when a key is pressed
 $(document).keydown(function() {
-  if (started==false) {
+  if (started===false) {
     nextSequence()
   };
   started = true;
+  return;
 });
 
 //handler function for users' button clicks
@@ -37,7 +38,8 @@ $(".btn").click(function() {
 });
 
 
-//function that selects a random colour from buttonColours and adds it at the end of gamePattern
+// this function runs when user finishes his turn
+// selects a random colour from buttonColours and adds it at the end of gamePattern
 function nextSequence() {
   //reset userClickedPattern
   userClickedPattern=[];
@@ -59,7 +61,7 @@ function nextSequence() {
 function checkAnswer(currentLevel) {
   if (gamePattern[currentLevel]===userClickedPattern[currentLevel]) {
     console.log("success");
-    if (userClickedPattern.length) {
+    if (userClickedPattern.length === gamePattern.length) {
       setTimeout(() => nextSequence(),1000);
 
     }
